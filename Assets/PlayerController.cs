@@ -10,22 +10,40 @@ public class PlayerController : MonoBehaviour
     float jumpVelocity = 5;
     float VelocityX = 5;
 
+    //asiが入る変数
+    GameObject asi;
+    //asiのスクリプトが入る変数
+    asibaController script;
+
     // Start is called before the first frame update
     void Start()
     {
         this.animator = GetComponent<Animator>();
         this.rigid2D = GetComponent<Rigidbody2D>();
+
+        //asiオブジェクトの取得
+        asi = GameObject.Find("asi");
+        //asiの中のスクリプトの取得
+        script = asi.GetComponent<asibaController>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        bool asibool = script.asi;
+
         //ジャンプする
         if (Input.GetKeyDown(KeyCode.Space)) 
         {
             this.animator.SetTrigger("jumptrigger");
             this.rigid2D.velocity = new Vector2(0,this.jumpVelocity);
         
+        }
+        //足場の当たり判定による待機モーションへの移行
+        if(asibool == true)
+        {
+            Debug.Log("taiki");
+            this.animator.SetTrigger("taikitrigger");
         }
 
         //左移動
@@ -60,13 +78,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "asiba")
-        {
-            this.animator.SetTrigger("taikitrigger");
-
-        }
-
-    }
 }
