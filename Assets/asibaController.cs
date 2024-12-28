@@ -6,14 +6,22 @@ public class asibaController : MonoBehaviour
 {
     public bool asi = false;
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(UnityEngine.Collider2D other)
     {
-        if (collision.gameObject.tag == "asiba")
+        if (other.gameObject.tag == "asiba")
         {
             asi = true;
 
         }
+    }
 
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.gameObject.tag == "asiba")
+        {
+            asi = false;
+
+        }
     }
 
     // Start is called before the first frame update
