@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerController : MonoBehaviour
 {
     Animator animator;
@@ -9,6 +10,8 @@ public class PlayerController : MonoBehaviour
     private float dump = 0.8f;
     float jumpVelocity = 5;
     float VelocityX = 5;
+    public int HP = 100;
+    public int RakkaDamage = 10;
 
     //Playerが入る変数
     GameObject Player;
@@ -47,13 +50,21 @@ public class PlayerController : MonoBehaviour
         //足場の当たり判定による待機モーションへの移行
         if(asibool == false)
         {
-            Debug.Log("jump");
+            //Debug.Log("jump");
             this.animator.SetTrigger("jumptrigger");
         }
         else if (asibool == true)
         {
-            Debug.Log("taiki");
+            //Debug.Log("taiki");
             this.animator.SetTrigger("taikitrigger");
+
+            //落下ダメージの検出
+            if(rigid2D.velocity.y < -10)
+            {
+                this.animator.SetTrigger("damagetrigger");
+                HP -= RakkaDamage;
+                Debug.Log(HP);
+            }
         }
 
 
@@ -114,6 +125,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.D) && Player.transform.localScale.x > 0)
         {
             this.Player.transform.localScale = new Vector3(-this.Player.transform.localScale.x, this.Player.transform.localScale.y, 0);
+        }
+
+        //攻撃モーション
+        if(Input.GetMouseButtonDown(0))
+        {
+            this.animator.SetTrigger("attacktrigger");
         }
     }
 

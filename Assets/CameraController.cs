@@ -22,8 +22,21 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         //Player‚ÌˆÊ’u‚É‡‚í‚¹‚ÄƒJƒƒ‰‚ðˆÚ“®
-        this.transform.position = 
-            
-            new Vector3(this.Player.transform.position.x,this.Player.transform.position.y,-20);
+        if (this.Player.transform.position.x >= -0.1f && this.Player.transform.position.x <= 0.2f)
+        {
+            this.transform.position =
+
+            new Vector3(this.Player.transform.position.x, this.Player.transform.position.y, -20);
+        }
+
+        if(this.Player.transform.position.x < -0.1f)
+        {
+            this.transform.position = new Vector3(-0.1f, this.Player.transform.position.y, -20);
+        }
+
+        if (this.Player.transform.position.x > 0.2f)
+        {
+            this.transform.position = new Vector3(0.2f, this.Player.transform.position.y, -20);
+        }
     }
 }
