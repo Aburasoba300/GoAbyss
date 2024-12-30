@@ -10,8 +10,9 @@ public class PlayerController : MonoBehaviour
     private float dump = 0.8f;
     float jumpVelocity = 5;
     float VelocityX = 5;
-    public int HP = 100;
-    public int RakkaDamage = 10;
+    public int HP = 10;
+    public int MaxHP = 10;
+    public int RakkaDamage = 1;
 
     //Playerが入る変数
     GameObject Player;
@@ -57,14 +58,6 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log("taiki");
             this.animator.SetTrigger("taikitrigger");
-
-            //落下ダメージの検出
-            if(rigid2D.velocity.y < -10)
-            {
-                this.animator.SetTrigger("damagetrigger");
-                HP -= RakkaDamage;
-                Debug.Log(HP);
-            }
         }
 
 
@@ -75,19 +68,19 @@ public class PlayerController : MonoBehaviour
             this.rigid2D.velocity = new Vector2(-this.VelocityX, this.rigid2D.velocity.y);
     
 
-            if (Input.GetKeyDown(KeyCode.Space) && asibool == true)
-            {
-                this.animator.SetTrigger("jumptrigger");
-                this.rigid2D.velocity = new Vector2(-this.VelocityX, this.jumpVelocity);
+            //if (Input.GetKeyDown(KeyCode.Space) && asibool == true)
+            //{
+                //this.animator.SetTrigger("jumptrigger");
+                //this.rigid2D.velocity = new Vector2(-this.VelocityX, this.jumpVelocity);
 
-            }
+            //}
 
         }
 
         //左ストップ
         else if(Input.GetKeyUp(KeyCode.A))
         {
-            this.animator.SetTrigger("walktrigger");
+            
             this.rigid2D.velocity = new Vector2(0,this.rigid2D.velocity.y);
 
         }
@@ -99,11 +92,11 @@ public class PlayerController : MonoBehaviour
             this.rigid2D.velocity = new Vector2(this.VelocityX, this.rigid2D.velocity.y);
             
 
-            if (Input.GetKeyDown(KeyCode.Space) && asibool == true)
-            {
-                this.animator.SetTrigger("jumptrigger");
-                this.rigid2D.velocity = new Vector2(this.VelocityX, this.jumpVelocity);
-            }
+            //if (Input.GetKeyDown(KeyCode.Space) && asibool == true)
+            //{
+               // this.animator.SetTrigger("jumptrigger");
+               // this.rigid2D.velocity = new Vector2(this.VelocityX, this.jumpVelocity);
+            //}
 
         }
         
@@ -111,7 +104,7 @@ public class PlayerController : MonoBehaviour
         //右ストップ
         else if (Input.GetKeyUp(KeyCode.D))
         {
-            this.animator.SetTrigger("walktrigger");
+            
             this.rigid2D.velocity = new Vector2(0, this.rigid2D.velocity.y);
 
         }
@@ -139,9 +132,26 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.tag == "asiba")
         {
-            Debug.Log("AshibaDayo");
+            //Debug.Log("AshibaDayo");
             this.rigid2D.velocity = new Vector2(0, this.rigid2D.velocity.y);
         }
+    }
+
+    void FixedUpdate()
+    {
+        bool asibool = script.asi;
+
+        if (asibool == true)
+        {
+            //落下ダメージの検出
+            if (rigid2D.velocity.y < -10)
+            {
+                this.animator.SetTrigger("damagetrigger");
+                HP -= RakkaDamage;
+                Debug.Log(HP);
+            }
+        }
+
     }
 
 }

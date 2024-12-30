@@ -36,17 +36,6 @@ public class FireGenerator : MonoBehaviour
             fire.GetComponent<Rigidbody2D>().velocity = new Vector2(velocityX, 0);
         }
 
-        //¶¬‚µ‚½Fire‚ğæ“¾
-        GameObject[] g = GameObject.FindGameObjectsWithTag("Fire");
-        //ƒvƒŒƒCƒ„[‚Æfire‚Ì‹——£‚ğ‘ª’è
-        distance = transform.position.x - player.transform.position.x;
-        //ˆê’è‹——£—£‚ê‚é‚Æ”j‰ó
-        for (int i = 0; i < g.Length; i++)
-        {
-            if (distance > 3f)
-            {
-                Destroy(g[i]);
-            }
-        }
+       
     }
 }
