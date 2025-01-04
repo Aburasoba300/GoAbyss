@@ -10,11 +10,17 @@ public class DogController : MonoBehaviour
 
     float VelocityX = 3;
     Rigidbody2D rigid2D;
+
+    public GameObject Player;
+    PlayerController PlayerScript;
     // Start is called before the first frame update
     void Start()
     {
         rigid2D = GetComponent<Rigidbody2D>();
         this.rigid2D.velocity = new Vector2(-VelocityX, 0);
+
+        Player = GameObject.Find("Player");
+        PlayerScript = Player.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -51,6 +57,9 @@ public class DogController : MonoBehaviour
         {
             this.rigid2D.velocity = -this.rigid2D.velocity;
             this.transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+            
+            PlayerScript.HP -= Attack;
+            
         }
     }
 }

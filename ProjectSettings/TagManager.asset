@@ -12,6 +12,7 @@ TagManager:
   - Dog
   - LeftEdge
   - RightEdge
+  - Needle
   layers:
   - Default
   - TransparentFX

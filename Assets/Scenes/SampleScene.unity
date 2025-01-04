@@ -6929,7 +6929,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &1048184394
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6939,7 +6939,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1048184388}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: f478c53d21fd30d4d835bcbcbdf971df, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -10537,6 +10537,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5031027977286640136, guid: d8139fa585b2cc2408e4df497a726807, type: 3}
+      propertyPath: NeedlePrefab
+      value: 
+      objectReference: {fileID: 9116098452274504913, guid: 6206cd83c5c09774ea482fa05bea6af8, type: 3}
     - target: {fileID: 3037914555328663154, guid: d8139fa585b2cc2408e4df497a726807, type: 3}
       propertyPath: m_LocalScale.x
       value: 10
