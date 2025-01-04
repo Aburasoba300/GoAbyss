@@ -56,9 +56,9 @@ public class HPGaugeController : MonoBehaviour
         Images[4] = image5;
 
         //HPÇÃïœêî
-        int HP = script.HP;
+        float HP = script.HP;
         int MaxHP = script.MaxHP;
-        int HPhalf = HP / 2;
+        float HPhalf = HP / 2;
 
         for (int i = 0; i < Images.Length; i++)
         {
@@ -88,10 +88,15 @@ public class HPGaugeController : MonoBehaviour
                     //Debug.Log("2");
                 }
 
-                else if (i + 1 > HPhalf)
+                else if (i + 1 == HPhalf + 0.5)
                 {
                     Images[i].fillAmount = 0.5f;
                     //Debug.Log("0.5");
+                }
+
+                else if(i+1 > HPhalf + 0.5)
+                {
+                    Images[i].fillAmount = 0;
                 }
 
             }

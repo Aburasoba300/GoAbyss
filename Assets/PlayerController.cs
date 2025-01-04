@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 
@@ -7,20 +8,25 @@ public class PlayerController : MonoBehaviour
 {
     Animator animator;
     Rigidbody2D rigid2D;
-    private float dump = 0.8f;
     float jumpVelocity = 5;
     float VelocityX = 5;
     public int HP = 10;
     public int MaxHP = 10;
     public int RakkaDamage = 1;
+    public int RakkaDamage1 = 5;
+    public int RakkaDamage2 = 10;
 
     //Playerが入る変数
     GameObject Player;
 
     //asiが入る変数
     GameObject asi;
+    //Fireが入る変数
+    GameObject fire;
     //asiのスクリプトが入る変数
     asibaController script;
+    //FireGeneratorのスクリプトが入る変数
+    FireGenerator Fscript;
 
     // Start is called before the first frame update
     void Start()
@@ -35,12 +41,16 @@ public class PlayerController : MonoBehaviour
         asi = GameObject.Find("asi");
         //asiの中のスクリプトの取得
         script = asi.GetComponent<asibaController>();
+
+        fire = GameObject.Find("FireGenerator");
+        Fscript = fire.GetComponent<FireGenerator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         bool asibool = script.asi;
+        bool Firebool = Fscript.FireCheck;
 
         //ジャンプする
         if (Input.GetKeyDown(KeyCode.Space) && asibool == true) 
@@ -121,9 +131,15 @@ public class PlayerController : MonoBehaviour
         }
 
         //攻撃モーション
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && Firebool == false)
         {
             this.animator.SetTrigger("attacktrigger");
+        }
+
+        //HPが0になったらプレイヤーオブジェクトを破壊
+        if(HP <= 0)
+        {
+            Destroy(Player);
         }
     }
 
@@ -144,12 +160,27 @@ public class PlayerController : MonoBehaviour
         if (asibool == true)
         {
             //落下ダメージの検出
-            if (rigid2D.velocity.y < -10)
+            if (-20 < rigid2D.velocity.y && rigid2D.velocity.y < -10)
             {
                 this.animator.SetTrigger("damagetrigger");
                 HP -= RakkaDamage;
                 Debug.Log(HP);
             }
+
+            else if (-30 < rigid2D.velocity.y && rigid2D.velocity.y <= -20)
+            {
+                this.animator.SetTrigger("damagetrigger");
+                HP -= RakkaDamage1;
+                Debug.Log(HP);
+            }
+
+            else if (rigid2D.velocity.y <= -30)
+            {
+                this.animator.SetTrigger("damagetrigger");
+                HP -= RakkaDamage2;
+                Debug.Log(HP);
+            }
+            
         }
 
     }

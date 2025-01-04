@@ -18,18 +18,20 @@ public class FireController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //¶¬‚µ‚½Fire‚ğæ“¾
-        GameObject[] g = GameObject.FindGameObjectsWithTag("Fire");
         //ƒvƒŒƒCƒ„[‚Æfire‚Ì‹——£‚ğ‘ª’è
-        distance = transform.position.x - player.transform.position.x;
-        //ˆê’è‹——£—£‚ê‚é‚Æ”j‰ó
-        for (int i = 0; i < g.Length; i++)
+        distance = Mathf.Abs(transform.position.x - player.transform.position.x);
+
+        if (distance > 10)
         {
-            if (distance > 3)
-            {
-                Debug.Log("destroy");
-                Destroy(g[i]);
-            }
+            Debug.Log("destroy");
+            Destroy(this.gameObject);
+
         }
+
+    }
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log(collision.gameObject);
+        Destroy(this.gameObject);
     }
 }

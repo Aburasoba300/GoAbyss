@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour
     //カメラの最小値
     float MinCameraPosi = -0.1f;
     //カメラのyの最小値
-    float MinCameraPosiY = -30;
+    float MinCameraPosiY = -43;
     //カメラのスクロールスピード
     float CameraScrollSpeed = 50f;
     //時間計測の判定
@@ -68,13 +68,6 @@ public class CameraController : MonoBehaviour
                     this.transform.position = new Vector3(transform.position.x, Player.transform.position.y - LimitCameraDown, transform.position.z);
                     
                 }
-                //最下層でのカメラ移動の処理
-                if (Player.transform.position.y - LimitCameraDown == MinCameraPosiY)
-                {
-                    this.transform.position = new Vector3(transform.position.x, MinCameraPosiY, transform.position.z);
-
-                }
-
             }
             
         }

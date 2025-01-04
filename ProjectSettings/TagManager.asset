@@ -8,6 +8,10 @@ TagManager:
   - asiba
   - Circle
   - Fire
+  - TurnPoint
+  - Dog
+  - LeftEdge
+  - RightEdge
   layers:
   - Default
   - TransparentFX
