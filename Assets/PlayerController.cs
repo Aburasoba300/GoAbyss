@@ -139,6 +139,9 @@ public class PlayerController : MonoBehaviour
         if(HP <= 0)
         {
             Destroy(Player);
+
+            //UIControllerのGameOver関数を呼び出して画面上にGameOverを表記
+            GameObject.Find("Canvas").GetComponent<UIController>().GameOver();
         }
     }
 
@@ -159,21 +162,21 @@ public class PlayerController : MonoBehaviour
         if (asibool == true)
         {
             //落下ダメージの検出
-            if (-20 < rigid2D.velocity.y && rigid2D.velocity.y < -10)
+            if (-30 < rigid2D.velocity.y && rigid2D.velocity.y < -12)
             {
                 this.animator.SetTrigger("damagetrigger");
                 HP -= RakkaDamage;
                 Debug.Log(HP);
             }
 
-            else if (-30 < rigid2D.velocity.y && rigid2D.velocity.y <= -20)
+            else if (-40 < rigid2D.velocity.y && rigid2D.velocity.y <= -30)
             {
                 this.animator.SetTrigger("damagetrigger");
                 HP -= RakkaDamage1;
                 Debug.Log(HP);
             }
 
-            else if (rigid2D.velocity.y <= -30)
+            else if (rigid2D.velocity.y <= -40)
             {
                 this.animator.SetTrigger("damagetrigger");
                 HP -= RakkaDamage2;

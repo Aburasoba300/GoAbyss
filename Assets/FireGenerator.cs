@@ -11,7 +11,7 @@ public class FireGenerator : MonoBehaviour
     private float velocityX = 10f;
 
     public bool FireCheck = false;
-    float FireRate = 0.8f;
+    float FireRate = 0.4f;
 
     //ƒvƒŒƒCƒ„[‚Æfire‚Ì‹——£
     public float distance;

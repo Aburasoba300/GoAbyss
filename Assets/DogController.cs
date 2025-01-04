@@ -29,6 +29,17 @@ public class DogController : MonoBehaviour
         if(this.HP == 0)
         {
             Destroy(this.gameObject);
+
+        }
+
+        if(transform.localScale.x < 0)
+        {
+            this.rigid2D.velocity = new Vector2(VelocityX,0);
+        }
+
+        else 
+        {
+            this.rigid2D.velocity = new Vector2(-VelocityX, 0);
         }
     }
 

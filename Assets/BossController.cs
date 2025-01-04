@@ -6,11 +6,14 @@ public class BossController : MonoBehaviour
 {
     int HP = 15;
     int Attack = 5;
-    float VelocityX = 5;
+    float VelocityX = 10;
 
     public bool NeedleCheck = false;
-    bool MoveCheck = false;
-    float MoveRate = 1;
+    
+    //計測用の変数
+    private float delta = 0;
+    //抽選間隔
+    private float span = 1.5f; 
 
     Rigidbody2D rigid2D;
     public GameObject NeedlePrefab;
@@ -28,72 +31,65 @@ public class BossController : MonoBehaviour
     void Update()
     {
         //HPが0になったら破壊
-        if(this.HP == 0)
+        if(this.HP <= 0)
         {
             Destroy(this.gameObject);
+            //UIControllerのGameClear関数を呼び出して画面上にGameClearを表記
+            GameObject.Find("Canvas").GetComponent<UIController>().GameClear();
         }
+
+        //時間計測
+        this.delta += Time.deltaTime;
 
         //プレイヤーが近づいたら行動開始
         if (Player.transform.position.y - this.transform.position.y <= 3)
         {
-            if (MoveCheck == false)
+            if (this.delta > this.span)
             {
-
-                MoveCheck = true;
-                
+                this.delta = 0;
                 //行動パターンの抽選
                 int num = Random.Range(1, 10);
-                if (num <= 5 )
+                if (num <= 5)
                 {
-                    Needle();
-                    
+                      Needle();
+
                 }
 
                 if (num >= 6)
                 {
-                    Dash();
-                    
+                      Dash();
                 }
+                
             }
         }
     }
 
     public void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.gameObject.tag == "Player" || other.gameObject.tag == "Fire")
-        {
-            this.rigid2D.velocity = new Vector2(3,0);
-        
-        }
 
         if(other.gameObject.tag == "Fire")
         {
+            Debug.Log(this.HP);
             this.HP -= 2;
+            this.rigid2D.velocity = new Vector2(3, 0);
         }
 
         if(other.gameObject.tag == "Player")
         {
             PlayerScript.HP -= Attack;
+            this.rigid2D.velocity = new Vector2(3, 0);
         }
     }
 
     //とげを飛ばす攻撃
     void Needle()
     {
-        if (MoveCheck == true)
-        {
-            NeedleCheck = true;
-            MoveCheck = false;
-        }
+            NeedleCheck = true;         
     }
     //突進攻撃
     void Dash()
     {
-        if (MoveCheck == true)
-        {
-            this.rigid2D.velocity = new Vector2(-VelocityX, 0);
-            MoveCheck = false;
-        }
+        this.rigid2D.velocity = new Vector2(-VelocityX, 0);           
     }
 
 }

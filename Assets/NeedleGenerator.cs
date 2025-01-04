@@ -7,6 +7,10 @@ public class NeedleGenerator : MonoBehaviour
     public GameObject NeedlePrefab;
     GameObject Boss;
     BossController BossScript;
+    //計測用の変数
+    private float delta = 0;
+    //抽選間隔
+    private float span = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -23,13 +27,19 @@ public class NeedleGenerator : MonoBehaviour
 
         if (NeedleChecker == true)
         {
+            //時間計測
+            this.delta += Time.deltaTime;
+            if (this.delta > this.span)
+            {
+                this.delta = 0;
+                //Needleの生成
+                GameObject Needle = Instantiate(NeedlePrefab);
+                Needle.transform.position = new Vector2(Boss.transform.localPosition.x - 3f, Boss.transform.localPosition.y);
+                Needle.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(-15, 0);
 
-            //Needleの生成
-            GameObject Needle = Instantiate(NeedlePrefab);
-            Needle.transform.position = new Vector2(Boss.transform.localPosition.x - 2f, Boss.transform.localPosition.y);
-            Needle.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(-10, 0);
+                NeedleChecker = false;
 
-            NeedleChecker = false;
+            }
         }
     }
 }
